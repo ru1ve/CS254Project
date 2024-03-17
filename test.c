@@ -3,6 +3,7 @@
 
 #include "student.h"
 #include "node.h"
+#include "list.h"
 
 int main ()
 {

@@ -2,10 +2,10 @@
 // Created by fdb22128 on 22/02/2024.
 //
 
-#include <stdio.h>
 
 #include "student.h"
-#include "utils.c"
+
+
 
 Student set_student ()
 {
@@ -43,6 +43,7 @@ Student set_student ()
             printf( "Invalid input!\n" );
         }
     }while( charInputted != 'P' && charInputted != 'S');
+
     /// If the char inputted is p it's point type else it's a scale type
     /// Get input according to point or scale
     if(charInputted == 'P')

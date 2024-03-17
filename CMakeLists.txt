@@ -3,9 +3,14 @@ project(untitled1 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(untitled1 main.c
+add_executable(untitled1 test.c
         student.c
         student.h
         node.h
         node.c
+        list.c
+        list.h
+        utils.h
+        utils.c
+        utils.c
 )

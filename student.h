@@ -1,3 +1,7 @@
+#include <stdio.h>
+
+#include "utils.h"
+
 #ifndef UNTITLED1_STUDENT_H
 #define UNTITLED1_STUDENT_H
 
