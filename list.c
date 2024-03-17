@@ -53,10 +53,18 @@ void insert_node(Node** plist, Node* newNode)
 void remove_all(Node **plist)
 {
     Node* iterator = *plist;
+    Node* previous = NULL;
     while(iterator != NULL)
     {
+        previous = iterator;
         iterator = iterator->next;
+        free(previous);
     }
+    if(previous != NULL)
+    {
+        free(iterator);
+    }
+
 }
 
 void remove_node(Node **plist, char id[])
