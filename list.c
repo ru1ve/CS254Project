@@ -74,7 +74,8 @@ void remove_node(Node **plist, char id[])
 
 void print_student(Node *list, char id[])
 {
-
+    //find student with id
+    //call print student detail
 }
 
 void change_key(Node **plist, char id[], char newid[])
