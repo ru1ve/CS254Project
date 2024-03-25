@@ -24,10 +24,10 @@ void change_key(Node **plist, char id[], char newid[]);
 // Helper methods
 
 /// checks if student id in Node exists in list
-/// \param head made const as doesn't get changed but needs to be pointer as could ne NULL
+/// \param head list to iterate over
 /// \param newNode newNode to check studentId for
 /// \return true if id exists in list
-bool isExistingID(const Node* head, const Node* newNode);
+bool isExistingID(Node* head, const Node* newNode);
 
 
 

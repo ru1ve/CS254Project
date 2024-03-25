@@ -22,6 +22,7 @@ void print_List(Node* head)
 
 void insert_node(Node** plist, Node* newNode)
 {
+
     if(isExistingID(*plist, newNode)) // Check if student ID already exists in list
     {
         printf("Student ID already exists, not inserted");
@@ -69,26 +70,83 @@ void remove_all(Node **plist)
 
 void remove_node(Node **plist, char id[])
 {
+    //find node
+    Node* iterator = *plist;
+    Node* previous = NULL;
+    while( ( iterator->value->studentID != id ) && ( strcmp(iterator->value->studentID, id) < 0 ) && ( NULL != iterator ) )
+    {
+        previous = iterator;
+        iterator = iterator->next;
+    }
 
+    // Check if next iterator value of id is smaller in ASCII
+    // If true id doesn't exist in list
+    // Further if iterator is NULL list is empty
+    if(strcmp(iterator->value->studentID, id) < 0 || NULL == iterator )
+    {
+        printf("Id does not exist in list!\n");
+        return;
+    }
+    // if previous is NULL only one item in list no need to repoint
+    else if(previous == NULL)
+    {
+        free(iterator);
+        return;
+    }
+    //else remove node iterator is pointing to
+    previous->next = iterator->next;
+    free(iterator);
 }
 
-void print_student(Node *list, char id[])
+void print_student(Node* list, char id[])
 {
-    //find student with id
-    //call print student detail
+    //find node
+    Node* previous = NULL;
+    while( ( list->value->studentID != id ) && ( strcmp(list->value->studentID, id) < 0 ) && ( NULL != list ) )
+    {
+        previous = list;
+        list = list->next;
+    }
+
+    // Check if student id has been found
+    if(list->value->studentID != id )
+    {
+        print_student_detail(*list->value);
+    }
+    else // Student ID not found
+    {
+        printf("Student ID was not found!\n");
+    }
 }
 
 void change_key(Node **plist, char id[], char newid[])
 {
+    //find node
+    Node* iterator = *plist;
+    Node* previous = NULL;
+    while( ( iterator->value->studentID != id ) && ( strcmp(iterator->value->studentID, id) < 0 ) && ( NULL != iterator ) )
+    {
+        previous = iterator;
+        iterator = iterator->next;
+    }
 
+    // Check if student id has been found
+    if(iterator->value->studentID != id )
+    {
+        //iterator->value->studentID = newid;
+    }
+    else // Student ID not found
+    {
+        printf("Student ID was not found!\n");
+    }
 }
 
-bool isExistingID(const Node* head, const Node* newNode)
+bool isExistingID(Node* head, const Node* newNode)
 {
-    Node* iterator = head; // reassign to be able to modify pointer
-    while(head != NULL)
+    Node* iterator = head; // reassign to be able to iterate without loosing place
+    while(iterator != NULL)
     {
-        if(iterator->value->studentID == newNode->value->studentID)
+        if(0 == strcmp(iterator->value->studentID, newNode->value->studentID))
         {
             return true;
         }
