@@ -6,7 +6,7 @@
 
 void print_List(Node* head)
 {
-    if(head->value == NULL) //if list is empty
+    if(head == NULL) //if list is empty
     {
         printf("List is empty!\n");
     }
@@ -90,11 +90,13 @@ void remove_node(Node **plist, char id[])
     // if previous is NULL only one item in list no need to repoint
     else if(previous == NULL)
     {
-        free(iterator);
-        return;
+
+        *plist = iterator->next;
     }
-    //else remove node iterator is pointing to
-    previous->next = iterator->next;
+    else //remove node iterator is pointing to
+    {
+        previous->next = iterator->next;
+    }
     free(iterator);
 }
 
@@ -126,70 +128,67 @@ void print_student(Node* list, char id[])
 void change_key(Node **plist, char id[], char newid[])
 {
     // Check if student ID exists
-    if(isExistingID(*plist, newid))
+    if (isExistingID(*plist, newid))
     {
         printf("New Student ID already exists in list!");
         return;
     }
 
-    //find node
-    Node* iterator = *plist;
-    Node* previous = NULL;
-    Node* iteratorOldId = NULL;
-    Node* previousOldId = NULL;
-    Node* iteratorNewId = NULL;
-    Node* previousNewId = NULL;
-    while((NULL != iterator ) && ( 0 != strcmp( iterator->value->studentID, id) ) && ( strcmp( iterator->value->studentID, id) < 0 ))
+    Node *iterator = *plist;
+    Node *previous = NULL;
+    Node *nodeToChange = NULL;
+
+    // Find the node to change
+    while (iterator != NULL)
     {
-        if(strcmp(iterator->value->studentID, id) <= 0 && (NULL == previous || strcmp(previous->value->studentID, id) > 0))
+        if (strcmp(iterator->value->studentID, id) == 0)
         {
-            iteratorOldId = iterator;
-            previousOldId = previous;
+            nodeToChange = iterator;
+            break;
         }
-
-        if(strcmp(iterator->value->studentID, newid) <= 0 && (NULL == previous || strcmp(previous->value->studentID, newid) > 0))
-        {
-            iteratorNewId = iterator;
-            previousNewId = previous;
-        }
-
         previous = iterator;
         iterator = iterator->next;
     }
 
     // Check if student id has been found
-    if( NULL == iteratorOldId || strcmp( iteratorOldId->value->studentID, id) > 0)
+    if (nodeToChange == NULL)
     {
         printf("Student ID was not found!\n");
+        return;
     }
-    else if ( 0 == strcmp( iteratorOldId->value->studentID, id) )
+
+    // Update the ID
+    strcpy(nodeToChange->value->studentID, newid);
+
+    // Remove node from its current position
+    if (previous == NULL)
     {
-        // replace new ID in list
-        strcpy( iteratorOldId->value->studentID, newid);
-        // remove node from list and store
-        Node* tempHolder = NULL;
+        *plist = nodeToChange->next; // Update head if node was first in the list
+    } else
+    {
+        previous->next = nodeToChange->next;
+    }
 
-        if(NULL == previousOldId)
-        {
-            tempHolder = iteratorOldId;
-            *plist = iteratorOldId->next;
-        }
-        else
-        {
-            tempHolder = iteratorOldId;
-            previousOldId->next = iteratorOldId->next;
-        }
+    // Re-insert node at appropriate position in the list
+    // (Assuming the list is sorted by student ID)
+    iterator = *plist;
+    previous = NULL;
+    while (iterator != NULL && strcmp(iterator->value->studentID, newid) < 0)
+    {
+        previous = iterator;
+        iterator = iterator->next;
+    }
 
-        if( previousNewId == NULL) // at start of list
-        {
-            tempHolder->next = *plist;
-            *plist = tempHolder;
-        }
-        else // is in middle or end of list
-        {
-            previousNewId->next = tempHolder;
-            tempHolder->next = iteratorNewId;
-        }
+    if (previous == NULL)
+    {
+        // Insert at the beginning of the list
+        nodeToChange->next = *plist;
+        *plist = nodeToChange;
+    } else
+    {
+        // Insert in the middle or at the end of the list
+        previous->next = nodeToChange;
+        nodeToChange->next = iterator;
     }
 }
 

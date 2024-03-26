@@ -9,9 +9,9 @@
 int main ()
 {
     Student s[4] = {
-            {"John", "Smith", "000987654", 23, 1, {.point = 76}},
-            {"Sue", "Kensington", "000023489", 19, 2, {.scale = 'F'}},
-            {"Mary", "Brown", "001234567", 35, 2, {.scale = 'D'}},
+            {"John", "Smith", "987654", 23, 1, {.point = 76}},
+            {"Sue", "Kensington", "23489", 19, 2, {.scale = 'F'}},
+            {"Mary", "Brown", "1234567", 35, 2, {.scale = 'D'}},
             {"David", "Williams", "090238748", 19, 1, {.point = 35}},
     };
 
@@ -24,15 +24,19 @@ int main ()
 
     insert_node(listOfNodes, node2);
 
-    print_student(*listOfNodes, "000023489");
+    print_student(*listOfNodes, "23489");
 
-    change_key(listOfNodes, "000987654", "111111111");
+    change_key(listOfNodes, "987654", "111111111");
 
     print_student(*listOfNodes, "111111111");
 
     remove_node(listOfNodes, "11111111");
 
     print_student(*listOfNodes, "111111111");
+
+    remove_node(listOfNodes, "23489");
+
+    print_List(*listOfNodes);
 
 
     ///END OF PROGRAM
