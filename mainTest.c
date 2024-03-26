@@ -9,10 +9,10 @@
 int main ()
 {
     Student s[4] = {
-            {"John", "Smith", "00987654", 23, 1, {.point = 76}},
-            {"Sue", "Kensington", "23489", 19, 2, {.scale = 'F'}},
-            {"Mary", "Brown", "01234567", 35, 2, {.scale = 'D'}},
-            {"David", "Williams", "90238748", 19, 1, {.point = 35}},
+            {"John", "Smith", "000987654", 23, 1, {.point = 76}},
+            {"Sue", "Kensington", "000023489", 19, 2, {.scale = 'F'}},
+            {"Mary", "Brown", "001234567", 35, 2, {.scale = 'D'}},
+            {"David", "Williams", "090238748", 19, 1, {.point = 35}},
     };
 
 
@@ -24,14 +24,21 @@ int main ()
 
     insert_node(listOfNodes, node2);
 
-    //(*listOfNodes)->value = &s[1];
+    print_student(*listOfNodes, "000023489");
 
-    //print_student_detail(*(*listOfNodes)->value);
+    change_key(listOfNodes, "000987654", "111111111");
+
+    print_student(*listOfNodes, "111111111");
+
+    remove_node(listOfNodes, "11111111");
+
+    print_student(*listOfNodes, "111111111");
+
+
+    ///END OF PROGRAM
+    remove_all(listOfNodes); // Free memory
 
     //Using to stop window from closing everytime I run program
-
-    remove_all(listOfNodes);
-
     int value;
     scanf( "%d", value );
 

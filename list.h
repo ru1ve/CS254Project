@@ -27,7 +27,7 @@ void change_key(Node **plist, char id[], char newid[]);
 /// \param head list to iterate over
 /// \param newNode newNode to check studentId for
 /// \return true if id exists in list
-bool isExistingID(Node* head, const Node* newNode);
+bool isExistingID(Node* head, char id[]);
 
 
 
