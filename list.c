@@ -22,7 +22,6 @@ void print_List(Node* head)
 
 void insert_node(Node** plist, Node* newNode)
 {
-
     if(isExistingID(*plist, newNode->value->studentID)) // Check if student ID already exists in list
     {
         printf("Student ID already exists, not inserted");
