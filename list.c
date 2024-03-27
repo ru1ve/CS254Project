@@ -22,10 +22,17 @@ void print_List(Node* head)
 
 void insert_node(Node** plist, Node* newNode)
 {
+    // If list is completely empty and points to NULL
+    if(NULL == plist)
+    {
+        printf("List is Empty can't insert into!\n");
+        return;
+    }
+
     if(isExistingID(*plist, newNode->value->studentID)) // Check if student ID already exists in list
     {
-        printf("Student ID already exists, not inserted");
-        free(newNode); // frees memory for newNode as can't be used any more
+        printf("Student ID already exists, not inserted\n");
+        free(newNode); // frees memory for newNode as can't be used any longer
         return;
     }
 
@@ -52,6 +59,12 @@ void insert_node(Node** plist, Node* newNode)
 
 void remove_all(Node **plist)
 {
+    // If list is empty do nothing but prevent segmentation fault
+    if(NULL == plist)
+    {
+        return;
+    }
+
     Node* iterator = *plist;
     Node* previous = NULL;
     while(iterator != NULL)
@@ -69,6 +82,13 @@ void remove_all(Node **plist)
 
 void remove_node(Node **plist, char id[])
 {
+    // If list is empty print error and return
+    if(NULL == plist)
+    {
+        printf("List is empty can't change key!\n");
+        return;
+    }
+
     //find node
     Node* iterator = *plist;
     Node* previous = NULL;
@@ -126,10 +146,16 @@ void print_student(Node* list, char id[])
 
 void change_key(Node **plist, char id[], char newid[])
 {
+    if(NULL == plist)
+    {
+        printf("List is empty can't change key!\n");
+        return;
+    }
+
     // Check if student ID exists
     if (isExistingID(*plist, newid))
     {
-        printf("New Student ID already exists in list!");
+        printf("New Student ID already exists in list!\n");
         return;
     }
 

@@ -7,31 +7,30 @@
 
 
 
-Student set_student ()
+void set_student (Student* result)
 {
-    Student result;
 
     printf( "What is your first name? " );
-    scanf( " %50s", result.fname );
+    scanf( " %50s", result->fname );
     while ((getchar() != '\n'));
 
     printf( "What is your last name? ");
-    scanf( " %50s", result.lname );
+    scanf( " %50s", result->lname );
     while ((getchar() != '\n'));
 
     printf("What is the student ID? ");
-    scanf( " %9s", result.studentID );
+    scanf( " %9s", result->studentID );
     while ((getchar() != '\n'));
 
     do
     {
-        getValidInt("Enter the students age: ", &result.age);
-        if ( result.age < 0 )
+        getValidInt("Enter the students age: ", &result->age);
+        if ( result->age < 0 )
         {
             printf( "Invalid input!\n" );
-            result.age = -1;
+            result->age = -1;
         }
-    } while ( result.age < 0 );
+    } while ( result->age < 0 );
 
     char charInputted;
     do
@@ -48,30 +47,29 @@ Student set_student ()
     /// Get input according to point or scale
     if(charInputted == 'P')
     {
-        result.markType = ePOINT_TYPE;
+        result->markType = ePOINT_TYPE;
         do
         {
-            getValidInt( "Please enter a numeric mark: ", &( result.mark.point ));
-            if( result.mark.point > 100 || result.mark.point < 0)
+            getValidInt( "Please enter a numeric mark: ", &( result->mark.point ));
+            if( result->mark.point > 100 || result->mark.point < 0)
             {
                 printf( "Invalid input!\n" );
             }
-        }while(result.mark.point > 100 || result.mark.point < 0);
+        }while(result->mark.point > 100 || result->mark.point < 0);
     }else
     {
-        result.markType = eSCALE_TYPE;
+        result->markType = eSCALE_TYPE;
         do
         {
             printf("Please enter a alphabetic mark: ");
-            scanf(" %c", &(result.mark.scale));
-            if( (result.mark.scale < 65 || result.mark.scale > 68 ) && result.mark.scale != 70)
+            scanf(" %c", &(result->mark.scale));
+            if( (result->mark.scale < 65 || result->mark.scale > 68 ) && result->mark.scale != 70)
             {
                 printf( "Invalid input!\n" );
             }
-        }while((result.mark.scale < 65 || result.mark.scale > 68 ) && result.mark.scale != 70);
+        }while((result->mark.scale < 65 || result->mark.scale > 68 ) && result->mark.scale != 70);
     }
     while ((getchar() != '\n'));
-    return result;
 }
 
 void print_student_detail(Student student)

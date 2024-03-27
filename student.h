@@ -35,7 +35,7 @@ typedef struct STUDENT Student;
 
 /// Prompts user for student information and fills student struct
 /// \return returns struct of student
-Student set_student();
+void set_student(Student* result);
 
 ///
 /// \param student

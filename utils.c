@@ -26,3 +26,10 @@ void getValidInt ( char* message, int* value )
         }
     }
 }
+
+void getValidID( const char* message, char* value)
+{
+    printf("%s", message);
+    scanf( " %9s", value );
+    while ((getchar() != '\n'));
+}
