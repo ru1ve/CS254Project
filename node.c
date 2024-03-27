@@ -16,8 +16,13 @@ Node* new_node(Student* value)
 
 Node* new_node_withStudent()
 {
-    Node *node = malloc(sizeof(Node));
+    Node* node = malloc(sizeof(Node));
     Student* student = malloc(sizeof(Student));
+    if(node == NULL || student == NULL)
+    {
+        // exit program malloc has failed will cause fatal errors down the line
+        exit(-10);
+    }
     set_student(student); // fills struct with data
     node->value = student; // set pointer in node to pointer to struct of student
     node->next = NULL;
