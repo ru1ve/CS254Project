@@ -6,9 +6,23 @@
 
 #include "list.h"
 
+/*
+ * Note this doesn't compile because of the node_free() method this frees the memory for malloc of both the student struct and node
+ * This was not implemented when the mainTest was being used, however the way main.c was designed requires a free() for the student struct
+ * In hindsight I should have tested the program using a dynamic array size but due to time constraints I felt it more useful to go straight to proper testing
+ * with the UI.
+ */
+
 // Renamed to (M)ain temporarily as using CMAKE and is easier to rename rather than un include
 int Main()
 {
+    Student* studentArray = malloc(sizeof(Student));
+    if (studentArray == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return -9;
+    }
+
     Student s[5] = {
             {"John", "Smith", "987654", 23, 1, {.point = 76}},
             {"Sue", "Kensington", "23489", 19, 2, {.scale = 'F'}},
@@ -17,12 +31,21 @@ int Main()
             {"David", "Williams", "090238748", 19, 1, {.point = 35}},
     };
 
+    for (int i = 0; i < 5; i++) {
+        strcpy(studentArray[i].fname,s[i].fname);
+        strcpy(studentArray[i].lname, s[i].lname);
+        strcpy(studentArray[i].studentID, s[i].studentID);
+        studentArray[i].age = s[i].age;
+        studentArray[i].markType = s[i].markType;
+        studentArray[i].mark = s[i].mark;
+    }
 
-    Node* node1 = new_node(&s[0]);
-    Node* node2 = new_node(&s[1]);
-    Node* node3 = new_node(&s[2]);
-    Node* node4 = new_node(&s[3]);
-    Node* node5 = new_node(&s[4]);
+
+    Node* node1 = new_node(&studentArray[0]);
+    Node* node2 = new_node(&studentArray[1]);
+    Node* node3 = new_node(&studentArray[2]);
+    Node* node4 = new_node(&studentArray[3]);
+    Node* node5 = new_node(&studentArray[4]);
 
     Node** listOfNodes = NULL;
 

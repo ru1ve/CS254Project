@@ -18,8 +18,8 @@ Node* new_node_withStudent()
 {
     Node *node = malloc(sizeof(Node));
     Student* student = malloc(sizeof(Student));
-    set_student(student);
-    node->value = student;
+    set_student(student); // fills struct with data
+    node->value = student; // set pointer in node to pointer to struct of student
     node->next = NULL;
 
     return node;
@@ -27,6 +27,9 @@ Node* new_node_withStudent()
 
 void free_node(Node* node)
 {
-    free(node->value);
+    if(node->value != NULL)
+    {
+        free(node->value); // free value first as
+    }
     free(node);
 }

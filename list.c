@@ -32,7 +32,7 @@ void insert_node(Node** plist, Node* newNode)
     if(isExistingID(*plist, newNode->value->studentID)) // Check if student ID already exists in list
     {
         printf("Student ID already exists, not inserted\n");
-        free(newNode); // frees memory for newNode as can't be used any longer
+        free_node(newNode); // frees memory for newNode as can't be used any longer
         return;
     }
 
@@ -71,11 +71,12 @@ void remove_all(Node **plist)
     {
         previous = iterator;
         iterator = iterator->next;
-        free(previous);
+        free_node(previous);
     }
-    if(previous != NULL)
+
+    if(previous == NULL)
     {
-        free(iterator);
+        free_node(iterator);
     }
 
 }
@@ -116,7 +117,7 @@ void remove_node(Node **plist, char id[])
     {
         previous->next = iterator->next;
     }
-    free(iterator);
+    free_node(iterator);
 }
 
 void print_student(Node* list, char id[])

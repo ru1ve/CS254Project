@@ -19,8 +19,7 @@ enum state
 
 int main()
 {
-    char* userMessage;
-    userMessage = "\nChoose an option:\n 1. Add a new student record\n 2. Remove a student\n 3. Print a student record with a given id\n 4. Change a student ID\n 5. Print all student record\n 6. Remove all student records\n\n 0. Quit\n";
+    const char* userMessage = "\nChoose an option:\n 1. Add a new student record\n 2. Remove a student\n 3. Print a student record with a given id\n 4. Change a student ID\n 5. Print all student record\n 6. Remove all student records\n\n 0. Quit\n";
     // Initialise variables for state machine
     bool keepLooping = true;
     enum state programState = 7;
