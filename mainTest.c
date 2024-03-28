@@ -6,17 +6,19 @@
 
 #include "list.h"
 
-/*
+/* !!! THIS IS NO LONGER VALID !!!
  * Note this doesn't compile because of the node_free() method this frees the memory for malloc of both the student struct and node
  * This was not implemented when the mainTest was being used, however the way main.c was designed requires a free() for the student struct
  * In hindsight I should have tested the program using a dynamic array size but due to time constraints I felt it more useful to go straight to proper testing
  * with the UI.
  */
 
+/// FIXED the test program now works as it uses the same create new student method that allocated memory for each student the commented area was previously used
+
 // Renamed to (M)ain temporarily as using CMAKE and is easier to rename rather than un include
 int Main()
 {
-    Student* studentArray = malloc(sizeof(Student));
+    /*Student* studentArray = malloc(sizeof(Student));
     if (studentArray == NULL)
     {
         printf("Memory allocation failed\n");
@@ -47,7 +49,11 @@ int Main()
     Node* node4 = new_node(&studentArray[3]);
     Node* node5 = new_node(&studentArray[4]);
 
+    Node** listOfNodes = NULL;*/
+
     Node** listOfNodes = NULL;
+    Node* newNode = NULL;
+    Node* firsNode = NULL;
 
     /// Test case using an empty list which points to NULL
     /// expected result No crashes + error messages e.g. list empty
@@ -63,12 +69,23 @@ int Main()
 
     /// Test case inserting two different nodes into list
     printf("Can't insert into pointer pointing to NULL should print error message for each: ");
-    insert_node(listOfNodes, node1); // Can't insert into pointer pointing to NULL
-    insert_node(listOfNodes, node2); // Both should print error message and return
+    newNode = new_node_withStudent();
+    insert_node(listOfNodes, newNode);// Can't insert into pointer pointing to NULL
+    newNode = new_node_withStudent();
+    insert_node(listOfNodes, newNode);// Both should print error message and return
 
     /// Insert two nodes into list
-    listOfNodes = &node1; // Set listOfNodes to memory address of the first node ( Can't be done using insert_node() )
-    insert_node(listOfNodes, node2);
+    // Set listOfNodes to memory address of the first node ( Can't be done using insert_node() )
+    newNode = new_node_withStudent();
+    if(listOfNodes == NULL) // Same as main as listOfNodes is Null
+    {
+        firsNode = newNode;
+        listOfNodes = &firsNode;
+    }
+    else
+    {
+        insert_node(listOfNodes, newNode);
+    }
 
     /// Test cases with one Node in list
     /// expected result no crashes error message when using wrong ID
@@ -81,9 +98,12 @@ int Main()
     /// Test cases inserting Nodes that have the same student ID
 
     printf("Inserting Nodes into list expect error message Student ID already exists: ");
-    insert_node(listOfNodes, node3);
-    insert_node(listOfNodes, node4);
-    insert_node(listOfNodes, node5); // Node5 has the same ID as node4 should return and print error
+    newNode = new_node_withStudent();
+    insert_node(listOfNodes, newNode);
+    newNode = new_node_withStudent();
+    insert_node(listOfNodes, newNode);
+    newNode = new_node_withStudent();
+    insert_node(listOfNodes, newNode); // Node5 has the same ID as node4 should return and print error
 
     printf("Updated list containing 4 nodes: \n");
     print_List(*listOfNodes); // Should print 4 nodes
